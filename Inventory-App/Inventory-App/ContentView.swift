@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  Inventory-Management-System
+//  Inventory-App
 //
 //  Created by Christiane Villaroel on 10/13/24.
 //

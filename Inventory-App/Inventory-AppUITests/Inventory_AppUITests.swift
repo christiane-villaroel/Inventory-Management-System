@@ -1,13 +1,13 @@
 //
-//  Inventory_Management_SystemUITests.swift
-//  Inventory-Management-SystemUITests
+//  Inventory_AppUITests.swift
+//  Inventory-AppUITests
 //
 //  Created by Christiane Villaroel on 10/13/24.
 //
 
 import XCTest
 
-final class Inventory_Management_SystemUITests: XCTestCase {
+final class Inventory_AppUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

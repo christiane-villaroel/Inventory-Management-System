@@ -1,13 +1,13 @@
 //
-//  Inventory_Management_SystemUITestsLaunchTests.swift
-//  Inventory-Management-SystemUITests
+//  Inventory_AppUITestsLaunchTests.swift
+//  Inventory-AppUITests
 //
 //  Created by Christiane Villaroel on 10/13/24.
 //
 
 import XCTest
 
-final class Inventory_Management_SystemUITestsLaunchTests: XCTestCase {
+final class Inventory_AppUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

@@ -7,62 +7,62 @@
 	objects = {
 
 /* Begin PBXContainerItemProxy section */
-		2AA3B2722CBC3532004AA746 /* PBXContainerItemProxy */ = {
+		2AA3B2A92CBC3683004AA746 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 2AA3B2582CBC3531004AA746 /* Project object */;
+			containerPortal = 2AA3B28F2CBC3681004AA746 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 2AA3B25F2CBC3531004AA746;
-			remoteInfo = "Inventory-Management-System";
+			remoteGlobalIDString = 2AA3B2962CBC3681004AA746;
+			remoteInfo = "Inventory-App";
 		};
-		2AA3B27C2CBC3532004AA746 /* PBXContainerItemProxy */ = {
+		2AA3B2B32CBC3683004AA746 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 2AA3B2582CBC3531004AA746 /* Project object */;
+			containerPortal = 2AA3B28F2CBC3681004AA746 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 2AA3B25F2CBC3531004AA746;
-			remoteInfo = "Inventory-Management-System";
+			remoteGlobalIDString = 2AA3B2962CBC3681004AA746;
+			remoteInfo = "Inventory-App";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2AA3B2602CBC3531004AA746 /* Inventory-Management-System.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Inventory-Management-System.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2AA3B2712CBC3532004AA746 /* Inventory-Management-SystemTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Inventory-Management-SystemTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2AA3B27B2CBC3532004AA746 /* Inventory-Management-SystemUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Inventory-Management-SystemUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AA3B2972CBC3681004AA746 /* Inventory-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Inventory-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AA3B2A82CBC3683004AA746 /* Inventory-AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Inventory-AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AA3B2B22CBC3683004AA746 /* Inventory-AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Inventory-AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		2AA3B2622CBC3531004AA746 /* Inventory-Management-System */ = {
+		2AA3B2992CBC3681004AA746 /* Inventory-App */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Inventory-Management-System";
+			path = "Inventory-App";
 			sourceTree = "<group>";
 		};
-		2AA3B2742CBC3532004AA746 /* Inventory-Management-SystemTests */ = {
+		2AA3B2AB2CBC3683004AA746 /* Inventory-AppTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Inventory-Management-SystemTests";
+			path = "Inventory-AppTests";
 			sourceTree = "<group>";
 		};
-		2AA3B27E2CBC3532004AA746 /* Inventory-Management-SystemUITests */ = {
+		2AA3B2B52CBC3683004AA746 /* Inventory-AppUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Inventory-Management-SystemUITests";
+			path = "Inventory-AppUITests";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		2AA3B25D2CBC3531004AA746 /* Frameworks */ = {
+		2AA3B2942CBC3681004AA746 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2AA3B26E2CBC3532004AA746 /* Frameworks */ = {
+		2AA3B2A52CBC3683004AA746 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2AA3B2782CBC3532004AA746 /* Frameworks */ = {
+		2AA3B2AF2CBC3683004AA746 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -72,22 +72,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2AA3B2572CBC3530004AA746 = {
+		2AA3B28E2CBC3681004AA746 = {
 			isa = PBXGroup;
 			children = (
-				2AA3B2622CBC3531004AA746 /* Inventory-Management-System */,
-				2AA3B2742CBC3532004AA746 /* Inventory-Management-SystemTests */,
-				2AA3B27E2CBC3532004AA746 /* Inventory-Management-SystemUITests */,
-				2AA3B2612CBC3531004AA746 /* Products */,
+				2AA3B2992CBC3681004AA746 /* Inventory-App */,
+				2AA3B2AB2CBC3683004AA746 /* Inventory-AppTests */,
+				2AA3B2B52CBC3683004AA746 /* Inventory-AppUITests */,
+				2AA3B2982CBC3681004AA746 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		2AA3B2612CBC3531004AA746 /* Products */ = {
+		2AA3B2982CBC3681004AA746 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2AA3B2602CBC3531004AA746 /* Inventory-Management-System.app */,
-				2AA3B2712CBC3532004AA746 /* Inventory-Management-SystemTests.xctest */,
-				2AA3B27B2CBC3532004AA746 /* Inventory-Management-SystemUITests.xctest */,
+				2AA3B2972CBC3681004AA746 /* Inventory-App.app */,
+				2AA3B2A82CBC3683004AA746 /* Inventory-AppTests.xctest */,
+				2AA3B2B22CBC3683004AA746 /* Inventory-AppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,134 +95,134 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2AA3B25F2CBC3531004AA746 /* Inventory-Management-System */ = {
+		2AA3B2962CBC3681004AA746 /* Inventory-App */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2AA3B2852CBC3532004AA746 /* Build configuration list for PBXNativeTarget "Inventory-Management-System" */;
+			buildConfigurationList = 2AA3B2BC2CBC3683004AA746 /* Build configuration list for PBXNativeTarget "Inventory-App" */;
 			buildPhases = (
-				2AA3B25C2CBC3531004AA746 /* Sources */,
-				2AA3B25D2CBC3531004AA746 /* Frameworks */,
-				2AA3B25E2CBC3531004AA746 /* Resources */,
+				2AA3B2932CBC3681004AA746 /* Sources */,
+				2AA3B2942CBC3681004AA746 /* Frameworks */,
+				2AA3B2952CBC3681004AA746 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				2AA3B2622CBC3531004AA746 /* Inventory-Management-System */,
+				2AA3B2992CBC3681004AA746 /* Inventory-App */,
 			);
-			name = "Inventory-Management-System";
+			name = "Inventory-App";
 			packageProductDependencies = (
 			);
-			productName = "Inventory-Management-System";
-			productReference = 2AA3B2602CBC3531004AA746 /* Inventory-Management-System.app */;
+			productName = "Inventory-App";
+			productReference = 2AA3B2972CBC3681004AA746 /* Inventory-App.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2AA3B2702CBC3532004AA746 /* Inventory-Management-SystemTests */ = {
+		2AA3B2A72CBC3683004AA746 /* Inventory-AppTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2AA3B2882CBC3532004AA746 /* Build configuration list for PBXNativeTarget "Inventory-Management-SystemTests" */;
+			buildConfigurationList = 2AA3B2BF2CBC3683004AA746 /* Build configuration list for PBXNativeTarget "Inventory-AppTests" */;
 			buildPhases = (
-				2AA3B26D2CBC3532004AA746 /* Sources */,
-				2AA3B26E2CBC3532004AA746 /* Frameworks */,
-				2AA3B26F2CBC3532004AA746 /* Resources */,
+				2AA3B2A42CBC3683004AA746 /* Sources */,
+				2AA3B2A52CBC3683004AA746 /* Frameworks */,
+				2AA3B2A62CBC3683004AA746 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				2AA3B2732CBC3532004AA746 /* PBXTargetDependency */,
+				2AA3B2AA2CBC3683004AA746 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				2AA3B2742CBC3532004AA746 /* Inventory-Management-SystemTests */,
+				2AA3B2AB2CBC3683004AA746 /* Inventory-AppTests */,
 			);
-			name = "Inventory-Management-SystemTests";
+			name = "Inventory-AppTests";
 			packageProductDependencies = (
 			);
-			productName = "Inventory-Management-SystemTests";
-			productReference = 2AA3B2712CBC3532004AA746 /* Inventory-Management-SystemTests.xctest */;
+			productName = "Inventory-AppTests";
+			productReference = 2AA3B2A82CBC3683004AA746 /* Inventory-AppTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		2AA3B27A2CBC3532004AA746 /* Inventory-Management-SystemUITests */ = {
+		2AA3B2B12CBC3683004AA746 /* Inventory-AppUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2AA3B28B2CBC3532004AA746 /* Build configuration list for PBXNativeTarget "Inventory-Management-SystemUITests" */;
+			buildConfigurationList = 2AA3B2C22CBC3683004AA746 /* Build configuration list for PBXNativeTarget "Inventory-AppUITests" */;
 			buildPhases = (
-				2AA3B2772CBC3532004AA746 /* Sources */,
-				2AA3B2782CBC3532004AA746 /* Frameworks */,
-				2AA3B2792CBC3532004AA746 /* Resources */,
+				2AA3B2AE2CBC3683004AA746 /* Sources */,
+				2AA3B2AF2CBC3683004AA746 /* Frameworks */,
+				2AA3B2B02CBC3683004AA746 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				2AA3B27D2CBC3532004AA746 /* PBXTargetDependency */,
+				2AA3B2B42CBC3683004AA746 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				2AA3B27E2CBC3532004AA746 /* Inventory-Management-SystemUITests */,
+				2AA3B2B52CBC3683004AA746 /* Inventory-AppUITests */,
 			);
-			name = "Inventory-Management-SystemUITests";
+			name = "Inventory-AppUITests";
 			packageProductDependencies = (
 			);
-			productName = "Inventory-Management-SystemUITests";
-			productReference = 2AA3B27B2CBC3532004AA746 /* Inventory-Management-SystemUITests.xctest */;
+			productName = "Inventory-AppUITests";
+			productReference = 2AA3B2B22CBC3683004AA746 /* Inventory-AppUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		2AA3B2582CBC3531004AA746 /* Project object */ = {
+		2AA3B28F2CBC3681004AA746 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
-					2AA3B25F2CBC3531004AA746 = {
+					2AA3B2962CBC3681004AA746 = {
 						CreatedOnToolsVersion = 16.0;
 					};
-					2AA3B2702CBC3532004AA746 = {
+					2AA3B2A72CBC3683004AA746 = {
 						CreatedOnToolsVersion = 16.0;
-						TestTargetID = 2AA3B25F2CBC3531004AA746;
+						TestTargetID = 2AA3B2962CBC3681004AA746;
 					};
-					2AA3B27A2CBC3532004AA746 = {
+					2AA3B2B12CBC3683004AA746 = {
 						CreatedOnToolsVersion = 16.0;
-						TestTargetID = 2AA3B25F2CBC3531004AA746;
+						TestTargetID = 2AA3B2962CBC3681004AA746;
 					};
 				};
 			};
-			buildConfigurationList = 2AA3B25B2CBC3531004AA746 /* Build configuration list for PBXProject "Inventory-Management-System" */;
+			buildConfigurationList = 2AA3B2922CBC3681004AA746 /* Build configuration list for PBXProject "Inventory-App" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 2AA3B2572CBC3530004AA746;
+			mainGroup = 2AA3B28E2CBC3681004AA746;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 2AA3B2612CBC3531004AA746 /* Products */;
+			productRefGroup = 2AA3B2982CBC3681004AA746 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2AA3B25F2CBC3531004AA746 /* Inventory-Management-System */,
-				2AA3B2702CBC3532004AA746 /* Inventory-Management-SystemTests */,
-				2AA3B27A2CBC3532004AA746 /* Inventory-Management-SystemUITests */,
+				2AA3B2962CBC3681004AA746 /* Inventory-App */,
+				2AA3B2A72CBC3683004AA746 /* Inventory-AppTests */,
+				2AA3B2B12CBC3683004AA746 /* Inventory-AppUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		2AA3B25E2CBC3531004AA746 /* Resources */ = {
+		2AA3B2952CBC3681004AA746 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2AA3B26F2CBC3532004AA746 /* Resources */ = {
+		2AA3B2A62CBC3683004AA746 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2AA3B2792CBC3532004AA746 /* Resources */ = {
+		2AA3B2B02CBC3683004AA746 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -232,21 +232,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		2AA3B25C2CBC3531004AA746 /* Sources */ = {
+		2AA3B2932CBC3681004AA746 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2AA3B26D2CBC3532004AA746 /* Sources */ = {
+		2AA3B2A42CBC3683004AA746 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2AA3B2772CBC3532004AA746 /* Sources */ = {
+		2AA3B2AE2CBC3683004AA746 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -256,20 +256,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		2AA3B2732CBC3532004AA746 /* PBXTargetDependency */ = {
+		2AA3B2AA2CBC3683004AA746 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2AA3B25F2CBC3531004AA746 /* Inventory-Management-System */;
-			targetProxy = 2AA3B2722CBC3532004AA746 /* PBXContainerItemProxy */;
+			target = 2AA3B2962CBC3681004AA746 /* Inventory-App */;
+			targetProxy = 2AA3B2A92CBC3683004AA746 /* PBXContainerItemProxy */;
 		};
-		2AA3B27D2CBC3532004AA746 /* PBXTargetDependency */ = {
+		2AA3B2B42CBC3683004AA746 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2AA3B25F2CBC3531004AA746 /* Inventory-Management-System */;
-			targetProxy = 2AA3B27C2CBC3532004AA746 /* PBXContainerItemProxy */;
+			target = 2AA3B2962CBC3681004AA746 /* Inventory-App */;
+			targetProxy = 2AA3B2B32CBC3683004AA746 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		2AA3B2832CBC3532004AA746 /* Debug */ = {
+		2AA3B2BA2CBC3683004AA746 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -330,7 +330,7 @@
 			};
 			name = Debug;
 		};
-		2AA3B2842CBC3532004AA746 /* Release */ = {
+		2AA3B2BB2CBC3683004AA746 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -383,15 +383,15 @@
 			};
 			name = Release;
 		};
-		2AA3B2862CBC3532004AA746 /* Debug */ = {
+		2AA3B2BD2CBC3683004AA746 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "Inventory-Management-System/Inventory_Management_System.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Inventory-App/Inventory_App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Inventory-Management-System/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Inventory-App/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -409,7 +409,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "MAC-221.Inventory-Management-System";
+				PRODUCT_BUNDLE_IDENTIFIER = "MAC110.Inventory-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
@@ -420,15 +420,15 @@
 			};
 			name = Debug;
 		};
-		2AA3B2872CBC3532004AA746 /* Release */ = {
+		2AA3B2BE2CBC3683004AA746 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "Inventory-Management-System/Inventory_Management_System.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Inventory-App/Inventory_App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Inventory-Management-System/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Inventory-App/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -446,7 +446,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "MAC-221.Inventory-Management-System";
+				PRODUCT_BUNDLE_IDENTIFIER = "MAC110.Inventory-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
@@ -457,7 +457,7 @@
 			};
 			name = Release;
 		};
-		2AA3B2892CBC3532004AA746 /* Debug */ = {
+		2AA3B2C02CBC3683004AA746 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -467,19 +467,19 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "MAC-221.Inventory-Management-SystemTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "MAC110.Inventory-AppTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Inventory-Management-System.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Inventory-Management-System";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Inventory-App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Inventory-App";
 				XROS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
-		2AA3B28A2CBC3532004AA746 /* Release */ = {
+		2AA3B2C12CBC3683004AA746 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -489,19 +489,19 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "MAC-221.Inventory-Management-SystemTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "MAC110.Inventory-AppTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Inventory-Management-System.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Inventory-Management-System";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Inventory-App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Inventory-App";
 				XROS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
-		2AA3B28C2CBC3532004AA746 /* Debug */ = {
+		2AA3B2C32CBC3683004AA746 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -510,19 +510,19 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "MAC-221.Inventory-Management-SystemUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = "MAC110.Inventory-AppUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_TARGET_NAME = "Inventory-Management-System";
+				TEST_TARGET_NAME = "Inventory-App";
 				XROS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
-		2AA3B28D2CBC3532004AA746 /* Release */ = {
+		2AA3B2C42CBC3683004AA746 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -531,14 +531,14 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "MAC-221.Inventory-Management-SystemUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = "MAC110.Inventory-AppUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_TARGET_NAME = "Inventory-Management-System";
+				TEST_TARGET_NAME = "Inventory-App";
 				XROS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
@@ -546,43 +546,43 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2AA3B25B2CBC3531004AA746 /* Build configuration list for PBXProject "Inventory-Management-System" */ = {
+		2AA3B2922CBC3681004AA746 /* Build configuration list for PBXProject "Inventory-App" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2AA3B2832CBC3532004AA746 /* Debug */,
-				2AA3B2842CBC3532004AA746 /* Release */,
+				2AA3B2BA2CBC3683004AA746 /* Debug */,
+				2AA3B2BB2CBC3683004AA746 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2AA3B2852CBC3532004AA746 /* Build configuration list for PBXNativeTarget "Inventory-Management-System" */ = {
+		2AA3B2BC2CBC3683004AA746 /* Build configuration list for PBXNativeTarget "Inventory-App" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2AA3B2862CBC3532004AA746 /* Debug */,
-				2AA3B2872CBC3532004AA746 /* Release */,
+				2AA3B2BD2CBC3683004AA746 /* Debug */,
+				2AA3B2BE2CBC3683004AA746 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2AA3B2882CBC3532004AA746 /* Build configuration list for PBXNativeTarget "Inventory-Management-SystemTests" */ = {
+		2AA3B2BF2CBC3683004AA746 /* Build configuration list for PBXNativeTarget "Inventory-AppTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2AA3B2892CBC3532004AA746 /* Debug */,
-				2AA3B28A2CBC3532004AA746 /* Release */,
+				2AA3B2C02CBC3683004AA746 /* Debug */,
+				2AA3B2C12CBC3683004AA746 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2AA3B28B2CBC3532004AA746 /* Build configuration list for PBXNativeTarget "Inventory-Management-SystemUITests" */ = {
+		2AA3B2C22CBC3683004AA746 /* Build configuration list for PBXNativeTarget "Inventory-AppUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2AA3B28C2CBC3532004AA746 /* Debug */,
-				2AA3B28D2CBC3532004AA746 /* Release */,
+				2AA3B2C32CBC3683004AA746 /* Debug */,
+				2AA3B2C42CBC3683004AA746 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 2AA3B2582CBC3531004AA746 /* Project object */;
+	rootObject = 2AA3B28F2CBC3681004AA746 /* Project object */;
 }

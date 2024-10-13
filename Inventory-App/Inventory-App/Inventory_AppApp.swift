@@ -1,6 +1,6 @@
 //
-//  Inventory_Management_SystemApp.swift
-//  Inventory-Management-System
+//  Inventory_AppApp.swift
+//  Inventory-App
 //
 //  Created by Christiane Villaroel on 10/13/24.
 //
@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct Inventory_Management_SystemApp: App {
+struct Inventory_AppApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
