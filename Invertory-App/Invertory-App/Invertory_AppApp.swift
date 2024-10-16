@@ -11,7 +11,7 @@ import SwiftUI
 struct Invertory_AppApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            Login()
         }
     }
 }
