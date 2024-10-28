@@ -19,6 +19,7 @@ struct RecieveSortMenu:View {
                 
                 
             }
+            Image("Graph")
         }//end vstack
     }//end body
 }//end view
@@ -53,8 +54,10 @@ struct Dashboard: View {
                             .foregroundStyle(Color.lightGray)
                             .cornerRadius(10)
                         VStack{
-                            Image(systemName: "square")
-                                .background(.red)
+                            Image("Total products")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width:50,height:50)
                             Text("Total Products")
                                 .font(.subheadline)
                             }//End Vstack
@@ -67,8 +70,11 @@ struct Dashboard: View {
                             .foregroundStyle(Color.lightGray)
                             .cornerRadius(10)
                         VStack{
-                            Image(systemName: "square")
-                                .background(.red)
+                            Image( "Stock on Hand")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width:50,height:50)
+                                
                             Text("Stock on Hand")
                                 .font(.subheadline)
                             }//End Vstack
@@ -83,8 +89,10 @@ struct Dashboard: View {
                             .foregroundStyle(Color.lightGray)
                             .cornerRadius(10)
                         VStack{
-                            Image(systemName: "square")
-                                .background(.red)
+                            Image("Quantity In")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width:50,height:50)
                             Text("Quantity In")
                                 .font(.subheadline)
                             }//End Vstack
@@ -96,8 +104,10 @@ struct Dashboard: View {
                             .foregroundStyle(Color.lightGray)
                             .cornerRadius(10)
                         VStack{
-                            Image(systemName: "square")
-                                .background(.red)
+                            Image("Quantity out")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width:50,height:50)
                             Text("Quantity Out")
                                 .font(.subheadline)
                             }//End Vstack
