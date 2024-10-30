@@ -1,7 +1,7 @@
 import SwiftUI
 struct RecieveSortMenu:View {
-    @State var reports:[String] = ["Recieve and Sort Reports","Sales Summary","Purchase Summary","Stock Summary"]
-    @State var selectedReport:String = "Recieve and Sort Reports"
+    @State var reports:[String] = ["Receive and Sort Reports","Sales Summary","Purchase Summary","Stock Summary"]
+    @State var selectedReport:String = "Receive and Sort Reports"
     var body: some View {
         VStack{
             HStack{
