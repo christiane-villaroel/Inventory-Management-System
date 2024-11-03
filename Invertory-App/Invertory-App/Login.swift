@@ -48,14 +48,7 @@ struct Login: View
                             .stroke(.black))
                 NavigationLink(destination: Dashboard().navigationBarBackButtonHidden(true), isActive: $loginSucessful) {
                     Button(action: {
-                        let countries = [
-                            "Allen": "C123",
-                            "Christiane": "V123",
-                            "Brandon": "M123",
-                            "Fuat": "Ali123"
-                        ]
-                        
-                        if countries.keys.contains(username) && countries[username] == password
+                        if loginInfo.keys.contains(username) && loginInfo[username] == password
                         {
                             loginSucessful = true
                         } else
