@@ -6,10 +6,22 @@
 //
 
 import SwiftUI
+import Foundation
 
-let loginInfo = [
+struct User: Identifiable{
+    let id = UUID()
+    let username:String
+    let password:String
+}
+@State var  loginInfo: [User] = [
+  
+    
+  
+]
+
+/*@State let loginInfo = [
     "Allen": "C123",
     "Christiane": "V123",
     "Brandon": "M123",
     "Fuat": "Ali123"
-]
+]*/

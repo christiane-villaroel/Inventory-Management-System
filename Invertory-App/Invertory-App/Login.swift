@@ -9,6 +9,7 @@ struct Login: View
     
     var body: some View
     {
+        @State var loginInfo:[loginInfo]
         NavigationStack()
         {
             VStack(spacing: 20)
@@ -74,6 +75,6 @@ struct Login: View
 }
 
 #Preview {
-    Login()
+    Login(loginInfo:loginInfo["admin":"A123"])
 }
 
