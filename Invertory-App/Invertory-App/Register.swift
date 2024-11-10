@@ -1,21 +1,24 @@
+//
+//  Register.swift
+//  Invertory-App
+//
+//  Created by Christiane Villaroel on 11/9/24.
+//
+
 import SwiftUI
 
-struct Login: View
-{
-    @State private var username = ""
-    @State private var password = ""
-    @State private var loginSucessful: Bool = false
-    @State private var unsucessfulAlert: Bool = false
+struct Register: View {
+    var db = DBHelper(query:"")
+    @State var users: [(Int, String, String)] = []
+    @State var username: String = ""
+    @State var password: String = ""
     
-    var body: some View
-    {
-        //@State var loginInfo:[loginInfo]
-        
+    @State var registerSuccessful:Bool = false
+    
+    var body: some View {
         NavigationStack()
         {
-            VStack(spacing: 20)
-            {
-                
+            VStack (spacing:20){
                 Image(systemName: "cube.fill")
                     .renderingMode(.original)
                     .resizable()
@@ -25,10 +28,10 @@ struct Login: View
                     .padding()
                     .background(Color.myColor)
                     .clipShape(Circle())
-                Text("LOG IN")
+                Text("REGISTER")
                     .fontWeight(.bold)
                     .font(.largeTitle)
-                Text("Username")
+                Text("Create Username")
                     .frame(width: 300, alignment: .leading)
                 TextField("Username", text: $username)
                     .padding()
@@ -38,7 +41,7 @@ struct Login: View
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(.black))
-                Text("Password")
+                Text(" Create Password")
                     .frame(width: 300, alignment: .leading)
                 SecureField("Password", text: $password)
                     .padding()
@@ -48,40 +51,29 @@ struct Login: View
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(.black))
-                NavigationLink(destination: Dashboard().navigationBarBackButtonHidden(true), isActive: $loginSucessful) {
-                    Button(action: {
-                        let loginInfo = [
-                            "Allen": "C123",
-                            "Christiane": "V123",
-                            "Brandon": "M123",
-                            "Fuat": "Ali123"
-                        ]
-                        if loginInfo.keys.contains(username) && loginInfo[username] == password
-                        {
-                            loginSucessful = true
-                        } else
-                        {
-                            unsucessfulAlert = true
+                NavigationLink(destination: Login().navigationBarBackButtonHidden(true),isActive: $registerSuccessful){
+                    Button(action:{
+                        if !username.isEmpty && !password.isEmpty{
+                            db.insertUser(username: username, password: password)
+                        }else{
+                            
                         }
-                        
                     }) {
-                        Text("Login")
+                       Text("Register")
                             .frame(width: 180, height: 5)
                             .padding()
                             .background(Color.myColor)
                             .cornerRadius(50)
                             .foregroundColor(.white)
-                    }
-                    .alert(isPresented: $unsucessfulAlert) {
-                        Alert(title: Text("Error"), message: Text("Invalid username or password. Try again."), dismissButton: .default(Text("OK")))
-                    }
+                    }//End Button
+                    
                 }
-            }
-        }
-    }
-}
+            }//End Vstack
+        }//End NavStack
+       
+    }//End Body
+}//end RegisterView
 
 #Preview {
-    Login(/*loginInfo:loginInfo["admin":"A123"]*/)
+    Register()
 }
-

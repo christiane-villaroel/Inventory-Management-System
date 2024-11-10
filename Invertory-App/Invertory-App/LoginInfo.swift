@@ -8,16 +8,21 @@
 import SwiftUI
 import Foundation
 
-struct User: Identifiable{
-    let id = UUID()
-    let username:String
-    let password:String
+class User : Identifiable{
+    var username:String
+    var password:String
+ 
+    
+    init ( username:String, password:String){
+        self.username = username
+        self.password = password
+    }
 }
-@State var  loginInfo: [User] = [
+/*@State var  loginInfo: [User] = [
   
     
   
-]
+]*/
 
 /*@State let loginInfo = [
     "Allen": "C123",
