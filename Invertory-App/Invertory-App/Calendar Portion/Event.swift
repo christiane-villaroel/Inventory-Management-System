@@ -20,7 +20,7 @@ struct Event: Identifiable {
             case .suits:
                 return "👔"
             case .unspecified:
-                return "**"
+                return "*"
             }
         }
     }
@@ -53,12 +53,12 @@ struct Event: Identifiable {
     static var sampleEvents: [Event] {
          return [
              Event(eventType: .pants, date: Date().diff(numDays: 0), note: "Restock Jean Pants"),
-             Event(date: Date().diff(numDays: -1), note: "Get gift for Emily"),
+             Event(date: Date().diff(numDays: -1), note: "Inventory Check"),
              Event(eventType: .shirts, date: Date().diff(numDays: 6), note: "Restock T-Shirts"),
              Event(eventType: .suits, date: Date().diff(numDays: 2), note: "Restock Suits"),
              Event(eventType: .dresses, date: Date().diff(numDays: -1), note: "Restock Dresses"),
              Event(eventType: .shoes, date: Date().diff(numDays: -3), note: "Restock Shoes"),
-             Event(date: Date().diff(numDays: -4), note: "Plan for winter vacation.")
+             Event(date: Date().diff(numDays: -4), note: "Inventory Check")
          ]
      }
 }
