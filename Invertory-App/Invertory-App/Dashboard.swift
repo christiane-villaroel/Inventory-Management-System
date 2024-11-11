@@ -57,7 +57,7 @@ struct Dashboard: View {
                                 .foregroundStyle(Color.lightGray)
                                 .cornerRadius(10)
                             VStack{
-                                Image("Total products")
+                                Image("Boxes")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width:50,height:50)
@@ -73,7 +73,7 @@ struct Dashboard: View {
                                 .foregroundStyle(Color.lightGray)
                                 .cornerRadius(10)
                             VStack{
-                                Image( "Stock on Hand")
+                                Image("Shopping Cart")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width:50,height:50)

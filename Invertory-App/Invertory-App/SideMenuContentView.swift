@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SideMenuContentView: View {
     @State var menuItems: [MenuData] = [
-        MenuData(title: "Dashboard", image: "Dashboard",dropdown: false),
+        MenuData(title: "Dashboard", image: "dashboard",dropdown: false),
         MenuData(title: "Recieve & Sort", image: "Shopping Cart",dropdown: true),
         MenuData(title: "Inventory", image: "Boxes",dropdown: true),
         MenuData(title: "Transfer", image: "Transfer",dropdown: true),

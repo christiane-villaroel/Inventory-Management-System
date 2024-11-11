@@ -9,7 +9,7 @@ struct Login: View
     
     var body: some View
     {
-        @State var loginInfo:[loginInfo]
+        
         NavigationStack()
         {
             VStack(spacing: 20)
@@ -49,6 +49,12 @@ struct Login: View
                             .stroke(.black))
                 NavigationLink(destination: Dashboard().navigationBarBackButtonHidden(true), isActive: $loginSucessful) {
                     Button(action: {
+                        let loginInfo = [
+                            "Allen": "C123",
+                            "Christiane": "V123",
+                            "Brandon": "M123",
+                            "Fuat": "Ali123"
+                        ]
                         if loginInfo.keys.contains(username) && loginInfo[username] == password
                         {
                             loginSucessful = true
@@ -75,6 +81,6 @@ struct Login: View
 }
 
 #Preview {
-    Login(loginInfo:loginInfo["admin":"A123"])
+    Login()
 }
 

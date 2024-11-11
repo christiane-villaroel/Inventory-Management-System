@@ -13,11 +13,6 @@ struct User: Identifiable{
     let username:String
     let password:String
 }
-@State var  loginInfo: [User] = [
-  
-    
-  
-]
 
 /*@State let loginInfo = [
     "Allen": "C123",
