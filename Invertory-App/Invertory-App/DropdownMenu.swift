@@ -9,26 +9,46 @@ import SwiftUI
 
 struct DropdownMenu: View {
     @State private var isExpanded: Bool = false
-    @State private var selectedOption: String = "Select an Option"
-    let options = ["Option 1", "Option 2", "Option 3"]
-    
-    var body: some View {
-        DisclosureGroup(selectedOption, isExpanded: $isExpanded) {
-             VStack {
-               ForEach(options, id: \.self) { option in
-                 Text(option)
-                   .padding()
-                   .onTapGesture {
-                     selectedOption = option
-                     isExpanded = false
+       @State var menuItems: [MenuData] = [
+           MenuData(title: "Dashboard", image: "dashboard", dropdown: true, subOptions: ["Option 1", "Option 2"]),
+           MenuData(title: "Inventory", image: "Boxes", dropdown: false),
+           MenuData(title: "Notifications", image: "Transfer", dropdown: false),
+           MenuData(title: "Reports", image: "Reports", dropdown: true, subOptions: ["Monthly", "Yearly"])
+       ]
+       
+       @State var selectedOption = "Dashboard"
+       
+       var body: some View {
+           ZStack {
+               List(menuItems.indices, id: \.self) { index in
+                   let item = menuItems[index]
+                   
+                   if item.dropdown {
+                       DisclosureGroup(item.title, isExpanded: $isExpanded) {
+                           VStack {
+                               ForEach(item.subOptions, id: \.self) { option in
+                                   Text(option)
+                                       .padding()
+                                       .onTapGesture {
+                                           selectedOption = option
+                                       }
+                               }
+                           }
+                       }
+                   } else {
+                       HStack {
+                           Image(item.image)
+                               .resizable()
+                               .frame(width: 24, height: 24)
+                           Text(item.title)
+                               .font(.headline)
+                               .foregroundStyle(.black)
+                       }
                    }
                }
-             }
+               .scrollContentBackground(.hidden)
            }
-           .padding()
-           .background(Color.gray.opacity(0.1))
-           .cornerRadius(8)
-    }
+       }
 }
 
 #Preview {
