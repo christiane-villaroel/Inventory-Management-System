@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct Register: View {
-    var db = DBHelper(query:"")
+    @EnvironmentObject var db: DBHelper
     @State var users: [(Int, String, String)] = []
     @State var username: String = ""
     @State var password: String = ""
-    
+    @State var roleOptions = ["Retail Staff","Admin/Manager", "Supplier"]
+    @State var selectedRole: String = ""
     @State var registerSuccessful:Bool = false
     
     var body: some View {
@@ -51,12 +52,22 @@ struct Register: View {
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(.black))
+                Form{
+                    Picker("Select a Role", selection: $selectedRole){
+                        ForEach(roleOptions,id: \.self){
+                            Text($0)
+                        }
+                    }
+                    .pickerStyle(.inline)
+                }
+               
                 NavigationLink(destination: Login().navigationBarBackButtonHidden(true),isActive: $registerSuccessful){
                     Button(action:{
-                        if !username.isEmpty && !password.isEmpty{
-                            db.insertUser(username: username, password: password)
+                        if !username.isEmpty && !password.isEmpty && !selectedRole.isEmpty{
+                            db.insertUser(username: username, password: password,role: selectedRole)
+                            registerSuccessful = true
                         }else{
-                            
+                            registerSuccessful = false
                         }
                     }) {
                        Text("Register")
@@ -75,5 +86,8 @@ struct Register: View {
 }//end RegisterView
 
 #Preview {
+    let dbhelper = DBHelper()
     Register()
+        .environmentObject(dbhelper)
+        
 }

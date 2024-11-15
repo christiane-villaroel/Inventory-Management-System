@@ -2,15 +2,18 @@ import SwiftUI
 
 struct Login: View
 {
+    @EnvironmentObject var db: DBHelper
     @State private var username = ""
     @State private var password = ""
     @State private var loginSucessful: Bool = false
     @State private var unsucessfulAlert: Bool = false
+    @State private var userRole:String = ""
+    
     
     var body: some View
     {
-        //@State var loginInfo:[loginInfo]
         
+       
         NavigationStack()
         {
             VStack(spacing: 20)
@@ -50,21 +53,15 @@ struct Login: View
                             .stroke(.black))
                 NavigationLink(destination: Dashboard().navigationBarBackButtonHidden(true), isActive: $loginSucessful) {
                     Button(action: {
-                        let loginInfo = [
-                            "Allen": "C123",
-                            "Christiane": "V123",
-                            "Brandon": "M123",
-                            "Fuat": "Ali123"
-                        ]
-                        if loginInfo.keys.contains(username) && loginInfo[username] == password
-                        {
+                        if let user = db.getUser(username: username, password: password){
+                            userRole = user.3
                             loginSucessful = true
-                        } else
-                        {
+                        } else {
                             unsucessfulAlert = true
                         }
                         
-                    }) {
+                        })
+                    {
                         Text("Login")
                             .frame(width: 180, height: 5)
                             .padding()
@@ -82,6 +79,8 @@ struct Login: View
 }
 
 #Preview {
-    Login(/*loginInfo:loginInfo["admin":"A123"]*/)
+    let dbhelper = DBHelper()
+    Login()
+        .environmentObject(dbhelper)
 }
 

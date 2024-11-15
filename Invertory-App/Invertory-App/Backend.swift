@@ -1,92 +1,106 @@
-//
-//  Backend.swift
-//  Invertory-App
-//
-//  Created by Christiane Villaroel on 11/9/24.
-
-
 import Foundation
 import SQLite3
 
-class DBHelper {
+class DBHelper: ObservableObject {
     var db: OpaquePointer?
     var path: String = "inventoryDB.sqlite"
-    var query: String = ""
-   
-    init(query : String){
+
+    init() {
         self.db = createDB()
-        self.createTable(query:query)
+        self.createUserTable()
     }
-    func createDB()-> OpaquePointer?{
+    
+    func createDB() -> OpaquePointer? {
         let filepath = try! FileManager.default.url(
-            for:.documentDirectory,in:.userDomainMask,appropriateFor: nil,create: false ).appendingPathExtension(path)
-        var db : OpaquePointer? = nil
+            for: .documentDirectory,
+            in: .userDomainMask,
+            appropriateFor: nil,
+            create: false
+        ).appendingPathComponent(path)
         
-        if sqlite3_open(filepath.path,&db) != SQLITE_OK {
-            print("There is error in creating DB")
+        var db: OpaquePointer? = nil
+        if sqlite3_open(filepath.path, &db) != SQLITE_OK {
+            print("Error creating database.")
             return nil
-        }else{
-            print("Database has been created with path \(filepath.path)")
+        } else {
+            print("Database created at \(filepath.path)")
             return db
         }
     }
-    func createTable(query: String){
-        
-        if !query.isEmpty{
-            var createTable :OpaquePointer? = nil
-            if sqlite3_prepare_v2(self.db, query, -1, &createTable, nil) == SQLITE_OK{
-                if sqlite3_step(createTable) == SQLITE_DONE{
-                    print("Table createion successful")
-                }else{
-                    print("Table creation failed")
-                }
-            }else{
-                print("preparation failed")
+    
+    // Function to delete the old `User` table if it exists
+    func dropUserTable() {
+        let dropTableQuery = "DROP TABLE IF EXISTS User;"
+        var dropStmt: OpaquePointer? = nil
+        if sqlite3_prepare_v2(db, dropTableQuery, -1, &dropStmt, nil) == SQLITE_OK {
+            if sqlite3_step(dropStmt) == SQLITE_DONE {
+                print("User table dropped successfully.")
+            } else {
+                print("Could not drop User table.")
             }
-        }else{
-            print("No Table creation query")
         }
+        sqlite3_finalize(dropStmt)
     }
-    func insertUser(username: String, password: String){
-        let insertQuery = "INSERT INTO User (username, password) VALUES (?, ?);"
+    
+    // Function to create the new `User` table with a `role` column
+    func createUserTable() {
+        //dropUserTable() // Drop old table if it exists
+
+        let createTableQuery = """
+            CREATE TABLE IF NOT EXISTS User (
+                user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT NOT NULL UNIQUE,
+                password TEXT NOT NULL,
+                role TEXT NOT NULL
+            );
+            """
+        
+        var createTableStmt: OpaquePointer? = nil
+        if sqlite3_prepare_v2(db, createTableQuery, -1, &createTableStmt, nil) == SQLITE_OK {
+            if sqlite3_step(createTableStmt) == SQLITE_DONE {
+                print("User table created successfully.")
+            } else {
+                print("Could not create User table.")
+            }
+        }
+        sqlite3_finalize(createTableStmt)
+    }
+    func insertUser(username: String, password: String, role: String) {
+        let insertQuery = "INSERT INTO User (username, password, role) VALUES (?, ?, ?);"
         var insertStmt: OpaquePointer? = nil
         if sqlite3_prepare_v2(db, insertQuery, -1, &insertStmt, nil) == SQLITE_OK {
             sqlite3_bind_text(insertStmt, 1, (username as NSString).utf8String, -1, nil)
             sqlite3_bind_text(insertStmt, 2, (password as NSString).utf8String, -1, nil)
+            sqlite3_bind_text(insertStmt, 3, (role as NSString).utf8String, -1, nil)
             if sqlite3_step(insertStmt) == SQLITE_DONE {
-                print("User inserted successfully.")
+                print("User with role inserted successfully.")
             } else {
-                print("Could not insert user.")
+                print("Could not insert user with role.")
             }
         }
+        sqlite3_finalize(insertStmt)
     }
-    
-    func fetchUsers() ->[(Int,String,String)] {
-        let selectQuery = "SELECT * FROM User;"
-        var selectStmt: OpaquePointer? = nil
-        var users: [(Int, String, String)] = []
-        if sqlite3_prepare_v2(db, selectQuery, -1, &selectStmt, nil) == SQLITE_OK {
-            while sqlite3_step(selectStmt) == SQLITE_ROW {
-                let id = Int(sqlite3_column_int(selectStmt, 0))
-                let username = String(cString: sqlite3_column_text(selectStmt, 1))
-                let password = String(cString: sqlite3_column_text(selectStmt, 2))
-                users.append((id, username, password))
+    func getUser(username: String,password: String) -> (Int,String,String,String)? {
+        let query = "SELECT * FROM User WHERE username = ? AND password = ?;"
+        var stmt: OpaquePointer? = nil
+        
+        if sqlite3_prepare_v2(db, query, -1, &stmt, nil) == SQLITE_OK {
+            let username = username as NSString
+            let password = password as NSString
+            sqlite3_bind_text(stmt, 1, username.utf8String, -1, nil)
+            sqlite3_bind_text(stmt,2, password.utf8String, -1, nil)
+            
+            if sqlite3_step(stmt) == SQLITE_ROW {
+                let id = Int(sqlite3_column_int64(stmt, 0))
+                let firstName = String(cString: sqlite3_column_text(stmt, 1))
+                let lastName = String(cString: sqlite3_column_text(stmt, 2))
+                let role = String(cString: sqlite3_column_text(stmt, 3))
+                sqlite3_finalize(stmt)
+                return (id,firstName,lastName,role)
             }
         }
-        sqlite3_finalize(selectStmt)
-        return users
-    }
-    func deleteUser(id:Int){
-        let deleteQuery = "DELETE FROM User WHERE user_id = \(id);"
-        var deleteStmt: OpaquePointer? = nil
-        if sqlite3_prepare_v2(db, deleteQuery, -1, &deleteStmt, nil) == SQLITE_OK {
-            sqlite3_step(deleteStmt)
-        }
+        sqlite3_finalize(stmt)
+        return nil
     }
 
-  
-}//end dbhelper class
-
-//var users = DBHelper(query:"CREATE TABLE User (user_id INTEGER PRIMARY KEY AUTOINCREMENT,username TEXT NOT NULL UNIQUE, password TEXT NOT NULL);")
-
-
+}

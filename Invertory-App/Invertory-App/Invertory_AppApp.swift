@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct Invertory_AppApp: App {
+   let dbhelper = DBHelper()
     var body: some Scene {
         WindowGroup {
+            
             Login()
+                .environmentObject(dbhelper)
+             
         }
     }
 }

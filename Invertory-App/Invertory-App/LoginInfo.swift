@@ -18,11 +18,7 @@ class User : Identifiable{
         self.password = password
     }
 }
-/*@State var  loginInfo: [User] = [
-  
-    
-  
-]*/
+
 
 /*@State let loginInfo = [
     "Allen": "C123",
