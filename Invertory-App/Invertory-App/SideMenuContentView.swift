@@ -73,7 +73,8 @@ struct SideMenuContentView: View {
         case "Inventoy Calendar":
             Dashboard()
         case "Inventory Table":
-            InventoryTable()
+          //  InventoryTable()
+            Text("Inventory Table")
         default:
             Text("Unknown Destination")
         }
