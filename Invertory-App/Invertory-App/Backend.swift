@@ -127,5 +127,31 @@ class DBHelper: ObservableObject {
             insertUser(username: username, password: password, role: role, companyName: company, email: email)
         }
     }
+    func createSuppliersTable() {
+        let createTableQuery = """
+            CREATE TABLE IF NOT EXISTS Suppliers (
+                supplier_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                supplier_name TEXT NOT NULL,
+                product_id INTEGER NOT NULL,
+                user_id INTEGER NOT NULL,
+                restock BOOLEAN NOT NULL,
+                stock_amount INTEGER,
+                resupply_date DATE,
+                company_name TEXT,
+                FOREIGN KEY (user_id) REFERENCES User(user_id)
+            );
+        """
+        
+        var createTableStmt: OpaquePointer? = nil
+        if sqlite3_prepare_v2(db, createTableQuery, -1, &createTableStmt, nil) == SQLITE_OK {
+            if sqlite3_step(createTableStmt) == SQLITE_DONE {
+                print("Suppliers table created successfully.")
+            } else {
+                print("Could not create Suppliers table.")
+            }
+        }
+        sqlite3_finalize(createTableStmt)
+    }
+
 
 }
