@@ -1,46 +1,33 @@
-//
-//  InventoryTable.swift
-//  Invertory-App
-//
-//  Created by Christiane Villaroel on 11/12/24.
-//
-
 import SwiftUI
 
 struct InventoryTable: View {
-    struct BatchData: Identifiable {
-        let id = UUID()
-        let batchNo: Int
-        let product: String
-        let variant: String
-        let countedQuantity: Int
+    struct ProductData: Identifiable {
+        let id: Int
+        let productName: String
+        let price: Double
+        let category: String?
     }
     
+    @EnvironmentObject var dbHelper: DBHelper
+    @State private var products: [ProductData] = []
     
-    @State private var data: [BatchData] = []
-    
-    @State private var batchNo = ""
-    @State private var product = ""
-    @State private var variant = ""
-    @State private var countedQuantity = ""
-    
+    @State private var productName = ""
+    @State private var price = ""
+    @State private var category = ""
     
     @State private var editMode: EditMode = .inactive
     
     var body: some View {
         VStack {
-           
+            // Table Header
             HStack {
-                Text("Batch No.")
+                Text("Product Name")
                     .fontWeight(.bold)
                     .frame(maxWidth: .infinity)
-                Text("Product")
+                Text("Price")
                     .fontWeight(.bold)
                     .frame(maxWidth: .infinity)
-                Text("Variant")
-                    .fontWeight(.bold)
-                    .frame(maxWidth: .infinity)
-                Text("Counted Quantity")
+                Text("Category")
                     .fontWeight(.bold)
                     .frame(maxWidth: .infinity)
             }
@@ -48,58 +35,47 @@ struct InventoryTable: View {
             .background(Color(hex: 0xad6800))
             .foregroundColor(.white)
             
-            
+            // Product List
             List {
-                ForEach(data.indices, id: \.self) { index in
+                ForEach(products) { product in
                     ZStack {
-                       
-                        (index.isMultiple(of: 2) ? Color.gray.opacity(0.2) : Color.white)
-                            .edgesIgnoringSafeArea(.horizontal)
-                        
-                       
                         HStack {
-                            Text("\(data[index].batchNo)")
+                            Text(product.productName)
                                 .frame(maxWidth: .infinity)
-                            Text(data[index].product)
+                            Text(String(format: "%.2f", product.price))
                                 .frame(maxWidth: .infinity)
-                            Text(data[index].variant)
-                                .frame(maxWidth: .infinity)
-                            Text("\(data[index].countedQuantity)")
+                            Text(product.category ?? "N/A")
                                 .frame(maxWidth: .infinity)
                         }
                         .padding(.vertical, 4)
                     }
                     .listRowInsets(EdgeInsets())
                 }
-                .onDelete(perform: deleteData)
-                .onMove(perform: moveData)
+                .onDelete(perform: deleteProduct)
+                .onMove(perform: moveProduct)
             }
             .environment(\.editMode, $editMode)
 
             Divider()
             
-            
+            // Add New Product
             VStack {
-                Text("Add New Data")
+                Text("Add New Product")
                     .font(.headline)
                     .padding(.top)
                 
-                TextField("Batch No.", text: $batchNo)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .keyboardType(.numberPad)
-                
-                TextField("Product", text: $product)
+                TextField("Product Name", text: $productName)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 
-                TextField("Variant", text: $variant)
+                TextField("Price", text: $price)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .keyboardType(.decimalPad)
+                
+                TextField("Category", text: $category)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 
-                TextField("Counted Quantity", text: $countedQuantity)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .keyboardType(.numberPad)
-                
-                Button(action: addData) {
-                    Text("Add Entry")
+                Button(action: addProduct) {
+                    Text("Add Product")
                         .fontWeight(.bold)
                         .foregroundColor(.white)
                         .padding()
@@ -111,14 +87,14 @@ struct InventoryTable: View {
             }
             .padding()
             
-            
+            // Edit Mode Button
             HStack {
                 Button(action: {
                     withAnimation {
                         editMode = (editMode == .active) ? .inactive : .active
                     }
                 }) {
-                    Text(editMode == .active ? "Done" : "Remove")
+                    Text(editMode == .active ? "Done" : "Edit")
                         .fontWeight(.bold)
                         .foregroundColor(.white)
                         .padding()
@@ -129,33 +105,41 @@ struct InventoryTable: View {
             }
             .padding()
         }
-    }
-    
-    
-    func addData() {
-       
-        if let batchNoInt = Int(batchNo), let countedQuantityInt = Int(countedQuantity), !product.isEmpty, !variant.isEmpty {
-            let newEntry = BatchData(batchNo: batchNoInt, product: product, variant: variant, countedQuantity: countedQuantityInt)
-            data.append(newEntry)
-            
-            batchNo = ""
-            product = ""
-            variant = ""
-            countedQuantity = ""
+        .onAppear {
+            fetchProducts()
         }
     }
-
     
-    func deleteData(at offsets: IndexSet) {
-        data.remove(atOffsets: offsets)
+    // Add Product to the Database
+    func addProduct() {
+        guard let priceValue = Double(price), !productName.isEmpty else { return }
+        dbHelper.insertProduct(productName: productName, price: priceValue, category: category.isEmpty ? nil : category)
+        fetchProducts() // Refresh the product list
+        productName = ""
+        price = ""
+        category = ""
     }
-
     
-    func moveData(from source: IndexSet, to destination: Int) {
-        data.move(fromOffsets: source, toOffset: destination)
+    // Fetch Products from the Database
+    func fetchProducts() {
+        let fetchedProducts = dbHelper.fetchProducts()
+        products = fetchedProducts.map { ProductData(id: $0.0, productName: $0.1, price: $0.2, category: $0.3) }
+    }
+    
+    // Delete Product from the Database
+    func deleteProduct(at offsets: IndexSet) {
+        for index in offsets {
+            let product = products[index]
+            dbHelper.deleteProduct(productId: product.id)
+        }
+        fetchProducts() // Refresh the product list
+    }
+    
+    // Rearrange Product List
+    func moveProduct(from source: IndexSet, to destination: Int) {
+        products.move(fromOffsets: source, toOffset: destination)
     }
 }
-
 
 extension Color {
     init(hex: UInt) {
@@ -170,5 +154,5 @@ extension Color {
 }
 
 #Preview {
-    InventoryTable()
+    InventoryTable().environmentObject(DBHelper())
 }

@@ -10,6 +10,9 @@ class DBHelper: ObservableObject {
         self.db = createDB()
         self.dropUserTable()
         self.createUserTable()
+        self.createSuppliersTable()
+        self.createInventoryView()
+        self.createProductsTable()
     }
     
     func createDB() -> OpaquePointer? {
@@ -29,6 +32,7 @@ class DBHelper: ObservableObject {
             return db
         }
     }
+    //USER TABLE CRUD OPERATIONS
     
     // Function to delete the old `User` table if it exists
     func dropUserTable() {
@@ -127,6 +131,8 @@ class DBHelper: ObservableObject {
             insertUser(username: username, password: password, role: role, companyName: company, email: email)
         }
     }
+    
+    //SUPPLIERS TABLE CRUD OPERATIONS
     func createSuppliersTable() {
         let createTableQuery = """
             CREATE TABLE IF NOT EXISTS Suppliers (
@@ -152,6 +158,130 @@ class DBHelper: ObservableObject {
         }
         sqlite3_finalize(createTableStmt)
     }
+    //INVENTORY TABLE CRUD OPERATIONS
+    func createInventoryView() {
+        let createViewQuery = """
+            CREATE VIEW IF NOT EXISTS InventoryView AS
+            SELECT 
+                inventory_id,
+                product_id,
+                quantity,
+                supplier_id,
+                Max_level,
+                inventory_level,
+                CASE 
+                    WHEN inventory_level < 0 THEN 'Below minimum'
+                    WHEN inventory_level <= Max_level THEN 'Within range'
+                    ELSE 'Above maximum'
+                END AS level_status,
+                last_updated
+            FROM Inventory;
+        """
+        
+        var createViewStmt: OpaquePointer? = nil
+        if sqlite3_prepare_v2(db, createViewQuery, -1, &createViewStmt, nil) == SQLITE_OK {
+            if sqlite3_step(createViewStmt) == SQLITE_DONE {
+                print("InventoryView created successfully.")
+            } else {
+                print("Could not create InventoryView.")
+            }
+        }
+        sqlite3_finalize(createViewStmt)
+    }
+    // PRODUCTS TABLE CRUD OPERATIONS
+    func createProductsTable() {
+            let createTableQuery = """
+                CREATE TABLE IF NOT EXISTS Products (
+                    product_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    product_name TEXT NOT NULL,
+                    price REAL NOT NULL,
+                    category TEXT
+                );
+            """
+            
+            var createTableStmt: OpaquePointer? = nil
+            if sqlite3_prepare_v2(db, createTableQuery, -1, &createTableStmt, nil) == SQLITE_OK {
+                if sqlite3_step(createTableStmt) == SQLITE_DONE {
+                    print("Products table created successfully.")
+                } else {
+                    print("Could not create Products table.")
+                }
+            }
+            sqlite3_finalize(createTableStmt)
+        }
+    func insertProduct(productName: String, price: Double, category: String?) {
+        let insertQuery = "INSERT INTO Products (product_name, price, category) VALUES (?, ?, ?);"
+        var insertStmt: OpaquePointer? = nil
+        if sqlite3_prepare_v2(db, insertQuery, -1, &insertStmt, nil) == SQLITE_OK {
+            sqlite3_bind_text(insertStmt, 1, (productName as NSString).utf8String, -1, nil)
+            sqlite3_bind_double(insertStmt, 2, price)
+            if let category = category {
+                sqlite3_bind_text(insertStmt, 3, (category as NSString).utf8String, -1, nil)
+            } else {
+                sqlite3_bind_null(insertStmt, 3)
+            }
+            if sqlite3_step(insertStmt) == SQLITE_DONE {
+                print("Product inserted successfully.")
+            } else {
+                print("Failed to insert product.")
+            }
+        }
+        sqlite3_finalize(insertStmt)
+    }
+    
+    func fetchProducts() -> [(Int, String, Double, String?)] {
+        let fetchQuery = "SELECT * FROM Products;"
+        var fetchStmt: OpaquePointer? = nil
+        var products: [(Int, String, Double, String?)] = []
+
+        if sqlite3_prepare_v2(db, fetchQuery, -1, &fetchStmt, nil) == SQLITE_OK {
+            while sqlite3_step(fetchStmt) == SQLITE_ROW {
+                let productId = Int(sqlite3_column_int(fetchStmt, 0))
+                let productName = String(cString: sqlite3_column_text(fetchStmt, 1))
+                let price = sqlite3_column_double(fetchStmt, 2)
+                let category = sqlite3_column_text(fetchStmt, 3).flatMap { String(cString: $0) }
+                products.append((productId, productName, price, category))
+            }
+        }
+        sqlite3_finalize(fetchStmt)
+        return products
+    }
+    func updateProduct(productId: Int, productName: String, price: Double, category: String?) {
+        let updateQuery = "UPDATE Products SET product_name = ?, price = ?, category = ? WHERE product_id = ?;"
+        var updateStmt: OpaquePointer? = nil
+        if sqlite3_prepare_v2(db, updateQuery, -1, &updateStmt, nil) == SQLITE_OK {
+            sqlite3_bind_text(updateStmt, 1, (productName as NSString).utf8String, -1, nil)
+            sqlite3_bind_double(updateStmt, 2, price)
+            if let category = category {
+                sqlite3_bind_text(updateStmt, 3, (category as NSString).utf8String, -1, nil)
+            } else {
+                sqlite3_bind_null(updateStmt, 3)
+            }
+            sqlite3_bind_int(updateStmt, 4, Int32(productId))
+            if sqlite3_step(updateStmt) == SQLITE_DONE {
+                print("Product updated successfully.")
+            } else {
+                print("Failed to update product.")
+            }
+        }
+        sqlite3_finalize(updateStmt)
+    }
+    func deleteProduct(productId: Int) {
+        let deleteQuery = "DELETE FROM Products WHERE product_id = ?;"
+        var deleteStmt: OpaquePointer? = nil
+        if sqlite3_prepare_v2(db, deleteQuery, -1, &deleteStmt, nil) == SQLITE_OK {
+            sqlite3_bind_int(deleteStmt, 1, Int32(productId))
+            if sqlite3_step(deleteStmt) == SQLITE_DONE {
+                print("Product deleted successfully.")
+            } else {
+                print("Failed to delete product.")
+            }
+        }
+        sqlite3_finalize(deleteStmt)
+    }
+
+
+
 
 
 }
