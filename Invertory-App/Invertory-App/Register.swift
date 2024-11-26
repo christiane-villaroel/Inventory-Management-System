@@ -1,24 +1,25 @@
+//
+//  Register.swift
+//  Invertory-App
+//
+//  Created by Christiane Villaroel on 11/9/24.
+//
+
 import SwiftUI
 
-struct Login: View
-{
+struct Register: View {
     @EnvironmentObject var db: DBHelper
-    @State private var username = ""
-    @State private var password = ""
-    @State private var loginSucessful: Bool = false
-    @State private var unsucessfulAlert: Bool = false
-    @State private var userRole:String = ""
+    @State var users: [(Int, String, String)] = []
+    @State var username: String = ""
+    @State var password: String = ""
+    @State var roleOptions = ["Retail Staff","Admin/Manager", "Supplier"]
+    @State var selectedRole: String = ""
+    @State var registerSuccessful:Bool = false
     
-    
-    var body: some View
-    {
-        
-       
+    var body: some View {
         NavigationStack()
         {
-            VStack(spacing: 20)
-            {
-                
+            VStack (spacing:20){
                 Image(systemName: "cube.fill")
                     .renderingMode(.original)
                     .resizable()
@@ -28,10 +29,10 @@ struct Login: View
                     .padding()
                     .background(Color.myColor)
                     .clipShape(Circle())
-                Text("LOG IN")
+                Text("REGISTER")
                     .fontWeight(.bold)
                     .font(.largeTitle)
-                Text("Username")
+                Text("Create Username")
                     .frame(width: 300, alignment: .leading)
                 TextField("Username", text: $username)
                     .padding()
@@ -41,7 +42,7 @@ struct Login: View
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(.black))
-                Text("Password")
+                Text(" Create Password")
                     .frame(width: 300, alignment: .leading)
                 SecureField("Password", text: $password)
                     .padding()
@@ -51,36 +52,42 @@ struct Login: View
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(.black))
-                NavigationLink(destination: Dashboard().navigationBarBackButtonHidden(true), isActive: $loginSucessful) {
-                    Button(action: {
-                        if let user = db.getUser(username: username, password: password){
-                            userRole = user.3
-                            loginSucessful = true
-                        } else {
-                            unsucessfulAlert = true
+                Form{
+                    Picker("Select a Role", selection: $selectedRole){
+                        ForEach(roleOptions,id: \.self){
+                            Text($0)
                         }
-                        
-                        })
-                    {
-                        Text("Login")
+                    }
+                    .pickerStyle(.inline)
+                }
+               
+                NavigationLink(destination: Login().navigationBarBackButtonHidden(true),isActive: $registerSuccessful){
+                    Button(action:{
+                        if !username.isEmpty && !password.isEmpty && !selectedRole.isEmpty{
+                            db.insertUser(username: username, password: password,role: selectedRole)
+                            registerSuccessful = true
+                        }else{
+                            registerSuccessful = false
+                        }
+                    }) {
+                       Text("Register")
                             .frame(width: 180, height: 5)
                             .padding()
                             .background(Color.myColor)
                             .cornerRadius(50)
                             .foregroundColor(.white)
-                    }
-                    .alert(isPresented: $unsucessfulAlert) {
-                        Alert(title: Text("Error"), message: Text("Invalid username or password. Try again."), dismissButton: .default(Text("OK")))
-                    }
+                    }//End Button
+                    
                 }
-            }
-        }
-    }
-}
+            }//End Vstack
+        }//End NavStack
+       
+    }//End Body
+}//end RegisterView
 
 #Preview {
     let dbhelper = DBHelper()
-    Login()
+    Register()
         .environmentObject(dbhelper)
+        
 }
-
