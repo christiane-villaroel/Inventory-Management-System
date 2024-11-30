@@ -10,46 +10,67 @@ struct MenuData: Identifiable{
     var id = UUID()
     var title: String
     var image: String
-    var dropdown: Bool
-    var subOptions:[String] = []
+   
 }
 
 
 struct SideMenuContentView: View {
     @State private var isExpanded: Bool = false
     @State var menuItems: [MenuData] = [
-        MenuData(title: "Dashboard", image: "dashboard",dropdown: false),
-        MenuData(title: "Inventory", image: "Boxes",dropdown: true, subOptions: ["Inventory Calendar", "Inventory Table"]),
-        MenuData(title: "Notifications", image: "Transfer",dropdown: false),
-        MenuData(title: "Reports", image: "Reports",dropdown: false)
+        MenuData(title: "Dashboard", image: "dashboard"),
+        MenuData(title: "Inventory", image: "Boxes"),
+        MenuData(title: "Notifications", image: "Transfer"),
+        MenuData(title: "Reports", image: "Reports")
     ]
     @State var selectedOption = "Inventory"
     
     var body: some View {
         NavigationView{
             ZStack{
-                List($menuItems){
+                List{
+ 
+                        
+                    NavigationLink(destination:Dashboard()){
+                        Image("dashboard")
+                            .resizable()
+                            .frame(width: 24, height: 24)
+                        
+                        Text("Dashboard")
+                            .font(.headline)
+                            .foregroundStyle(.black)
+                    }
+                    NavigationLink(destination:ProductsTable()){
+                        Image("Quantity In")
+                            .resizable()
+                            .frame(width: 24, height: 24)
+                        
+                        Text("Update Product Details")
+                            .font(.headline)
+                            .foregroundStyle(.black)
+                    }
+                    NavigationLink(destination:InventoryTable()){
+                        Image("Reports")
+                            .resizable()
+                            .frame(width: 24, height: 24)
+                            .foregroundStyle(Color.myColor)
+                        
+                        Text("Inventory Details")
+                            .font(.headline)
+                            .foregroundStyle(.black)
+                    }
+                    NavigationLink(destination:InventoryManagementView()){
+                        Image(systemName: "pencil")
+                            .resizable()
+                            .frame(width: 24, height: 24)
+                            .foregroundStyle(Color.myColor)
+                        
+                        Text("Update Inventory")
+                            .font(.headline)
+                            .foregroundStyle(.black)
+                    }
                     
-                        $item in
-                       
-                        if item.dropdown{
-                            DisclosureGroup(item.title){
-                                VStack {
-                                    ForEach(item.subOptions, id: \.self) {option in
-                                        NavigationLink(
-                                            destination: getDestinationView(for: option)
-                                        ){
-                                            Text(option)
-                                                .onTapGesture {
-                                                    selectedOption = option
-                                                }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        else{
-                            HStack{
+                    
+                            /*HStack{
                                 Image(item.image)
                                     .resizable()
                                     .frame(width: 24, height: 24)
@@ -58,8 +79,7 @@ struct SideMenuContentView: View {
                                     .font(.headline)
                                     .foregroundStyle(.black)
                                     
-                            }//end hstack
-                        }
+                            }//end hstack*/
                     
                 }//end List
                 .scrollContentBackground(.hidden)
@@ -67,18 +87,6 @@ struct SideMenuContentView: View {
             
         }
     }// end body
-    @ViewBuilder
-    func getDestinationView(for option: String)-> some View{
-        switch option{
-        case "Inventoy Calendar":
-            Dashboard()
-        case "Inventory Table":
-          //  InventoryTable()
-            Text("Inventory Table")
-        default:
-            Text("Unknown Destination")
-        }
-    }
 }//end sidMenueContainer
 
 #Preview {

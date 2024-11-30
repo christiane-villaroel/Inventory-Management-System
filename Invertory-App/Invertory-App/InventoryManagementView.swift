@@ -9,7 +9,7 @@ import SwiftUI
 
 struct InventoryManagementView: View {
     @EnvironmentObject var dbHelper: DBHelper
-    @State private var productId: Int = 0
+    @State private var inventoryID: Int = 0
     @State private var quantity: Int = 0
     @State private var inventoryLevel: Int = 0
     @State private var maxLevel: Int = 0
@@ -20,7 +20,7 @@ struct InventoryManagementView: View {
         NavigationView {
             Form {
                 Section(header: Text("Product Details")) {
-                    TextField("Product ID", value: $productId, format: .number)
+                    TextField("Product ID", value: $inventoryID, format: .number)
                         .keyboardType(.numberPad)
                     TextField("Supplier ID", value: $supplierId, format: .number)
                         .keyboardType(.numberPad)
@@ -37,9 +37,9 @@ struct InventoryManagementView: View {
 
                 Button(action: {
                     if isEditing {
-                        dbHelper.updateInventory(productId: productId, quantity: quantity, inventoryLevel: inventoryLevel, maxLevel: maxLevel, supplierId: supplierId)
+                            print("updating inventory")
                     } else {
-                        dbHelper.addInventory(productId: productId, quantity: quantity, inventoryLevel: inventoryLevel, maxLevel: maxLevel, supplierId: supplierId)
+                        /*dbHelper.addInventory(inventoryId: inventoryID, quantity: quantity, inventoryLevel: inventoryLevel, maxLevel: maxLevel, supplierId: supplierId)*/
                     }
                 }) {
                     Text(isEditing ? "Update Inventory" : "Add Inventory")
