@@ -35,6 +35,51 @@ class DBHelper: ObservableObject {
         }
     }
     //USER TABLE CRUD OPERATIONS
+    // Execute a query and fetch results
+      func executeQuery(query: String) -> [[String: Any]]? {
+          var statement: OpaquePointer?
+          var results: [[String: Any]] = []
+
+          if sqlite3_prepare_v2(db, query, -1, &statement, nil) == SQLITE_OK {
+              while sqlite3_step(statement) == SQLITE_ROW {
+                  var row: [String: Any] = [:]
+                  for i in 0..<sqlite3_column_count(statement) {
+                      let columnName = String(cString: sqlite3_column_name(statement, i))
+                      if let value = getColumnValue(statement: statement, index: i) {
+                          row[columnName] = value
+                      }
+                  }
+                  results.append(row)
+              }
+              sqlite3_finalize(statement)
+          } else {
+              print("Query preparation failed: \(String(cString: sqlite3_errmsg(db)))")
+              return nil
+          }
+
+          return results
+      }
+
+      // Helper function to fetch column values
+      private func getColumnValue(statement: OpaquePointer?, index: Int32) -> Any? {
+          let columnType = sqlite3_column_type(statement, index)
+
+          switch columnType {
+          case SQLITE_INTEGER:
+              return Int(sqlite3_column_int(statement, index))
+          case SQLITE_FLOAT:
+              return Double(sqlite3_column_double(statement, index))
+          case SQLITE_TEXT:
+              return String(cString: sqlite3_column_text(statement, index))
+          case SQLITE_NULL:
+              return nil
+          default:
+              return nil
+          }
+      }
+    
+    
+    
     
     // Function to delete the old `User` table if it exists
     func dropUserTable() {
@@ -357,6 +402,38 @@ class DBHelper: ObservableObject {
         sqlite3_finalize(fetchStmt)
         return products
     }
+    
+    //Joins product and Inventory
+    func fetchProductInventory() -> [(Int, String, Int, Int, Int, Int, String)] {
+        var records: [(Int, String, Int, Int, Int, Int, String)] = []
+        let query = """
+        SELECT
+            Inventory.productId,
+            Products.name,
+            Inventory.quantity,
+            Inventory.inventoryLevel,
+            Inventory.maxLevel,
+            Inventory.supplierId,
+            Inventory.lastUpdated
+        FROM Inventory
+        INNER JOIN Products ON Inventory.productId = Products.id;
+        """
+        if let result = executeQuery(query: query) {
+            for row in result {
+                if let productId = row["productId"] as? Int,
+                   let name = row["name"] as? String,
+                   let quantity = row["quantity"] as? Int,
+                   let inventoryLevel = row["inventoryLevel"] as? Int,
+                   let maxLevel = row["maxLevel"] as? Int,
+                   let supplierId = row["supplierId"] as? Int,
+                   let lastUpdated = row["lastUpdated"] as? String {
+                    records.append((productId, name, quantity, inventoryLevel, maxLevel, supplierId, lastUpdated))
+                }
+            }
+        }
+        return records
+    }
+
     func updateProduct(productId: Int, productName: String, price: Double, category: String?) {
         let updateQuery = "UPDATE Products SET product_name = ?, price = ?, category = ? WHERE product_id = ?;"
         var updateStmt: OpaquePointer? = nil

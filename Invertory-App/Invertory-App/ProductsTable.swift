@@ -17,6 +17,8 @@ struct ProductsTable: View {
     
     @State private var editMode: EditMode = .inactive
     
+    // Add the rest similarly
+
     var body: some View {
         VStack {
             // Table Header

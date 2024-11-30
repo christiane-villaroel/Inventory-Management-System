@@ -12,127 +12,69 @@ struct InventoryRecord: Identifiable {
 
 struct InventoryTable: View {
     @EnvironmentObject var dbHelper: DBHelper
-    @State private var inventoryRecords: [InventoryRecord] = []
-    @State private var productList: [ProductsTable.ProductData] = []
-    @State private var selectedProductId: Int? = nil
-
-    @State private var quantity: String = ""
-    @State private var supplierId: String = ""
-    @State private var maxLevel: String = ""
-    @State private var inventoryLevel: String = ""
+    @State private var inventoryRecords: [(Int, String, Int, Int, Int, Int, String)] = []
 
     var body: some View {
-        VStack {
-            Text("Inventory Table")
-                .font(.largeTitle)
-                .padding()
-
-            // Inventory List
-            List {
-                ForEach(inventoryRecords) { record in
-                    VStack(alignment: .leading) {
-                        Text("Product Name: \(productList.first(where: { $0.id == record.productId })?.productName ?? "Unknown")")
-                        Text("Quantity: \(record.quantity)")
-                        Text("Supplier ID: \(record.supplierId)")
-                        Text("Max Level: \(record.maxLevel)")
-                        Text("Inventory Level: \(record.inventoryLevel)")
-                        Text("Last Updated: \(record.lastUpdated)")
-                    }
-                }
-                .onDelete(perform: deleteInventory)
-            }
-
-            // Add Inventory Form
+        NavigationView {
             VStack {
-                Text("Add or Update Inventory")
-                    .font(.headline)
-                    .padding(.top)
+                // Table Header
+                HStack {
+                    Text("Product Name")
+                        .fontWeight(.bold)
+                        .frame(maxWidth: .infinity)
+                    Text("Quantity")
+                        .fontWeight(.bold)
+                        .frame(maxWidth: .infinity)
+                    Text("Inventory Level")
+                        .fontWeight(.bold)
+                        .frame(maxWidth: .infinity)
+                    Text("Max Level")
+                        .fontWeight(.bold)
+                        .frame(maxWidth: .infinity)
+                    Text("Supplier ID")
+                        .fontWeight(.bold)
+                        .frame(maxWidth: .infinity)
+                    Text("Last Updated")
+                        .fontWeight(.bold)
+                        .frame(maxWidth: .infinity)
+                }
+                .padding()
+                .background(Color.myColor)
+                .foregroundColor(.white)
 
-                Picker("Select Product", selection: $selectedProductId) {
-                    ForEach(productList) { product in
-                        Text(product.productName).tag(product.id as Int?)
+                // Inventory List
+                List {
+                    ForEach(inventoryRecords, id: \.0) { record in
+                        HStack {
+                            Text(record.1) // Product Name
+                                .frame(maxWidth: .infinity)
+                            Text("\(record.2)") // Quantity
+                                .frame(maxWidth: .infinity)
+                            Text("\(record.3)") // Inventory Level
+                                .frame(maxWidth: .infinity)
+                            Text("\(record.4)") // Max Level
+                                .frame(maxWidth: .infinity)
+                            Text("\(record.5)") // Supplier ID
+                                .frame(maxWidth: .infinity)
+                            Text(record.6) // Last Updated
+                                .frame(maxWidth: .infinity)
+                        }
+                        .padding(.vertical, 4)
                     }
                 }
-                .onAppear {
-                    productList = dbHelper.fetchProducts().map { ProductsTable.ProductData(id: $0.0, productName: $0.1, price: $0.2, category: $0.3) }
-                }
-
-                TextField("Quantity", text: $quantity)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .keyboardType(.numberPad)
-
-                TextField("Supplier ID", text: $supplierId)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .keyboardType(.numberPad)
-
-                TextField("Max Level", text: $maxLevel)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .keyboardType(.numberPad)
-
-                TextField("Inventory Level", text: $inventoryLevel)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .keyboardType(.numberPad)
-
-                Button(action: addInventory) {
-                    Text("Add Entry")
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.blue)
-                        .cornerRadius(8)
-                }
+                .listStyle(PlainListStyle())
             }
-            .padding()
+            .navigationBarTitle("Inventory List", displayMode: .inline)
+            .onAppear(perform: fetchInventory)
         }
-        .onAppear(perform: fetchInventory)
     }
 
+    // Fetch Inventory Records
     func fetchInventory() {
-        let records = dbHelper.fetchInventory()
-        inventoryRecords = records.map {
-            InventoryRecord(
-                id: $0.0,
-                productId: $0.1,
-                quantity: $0.2,
-                supplierId: $0.3,
-                maxLevel: $0.4,
-                inventoryLevel: $0.5,
-                lastUpdated: $0.6
-            )
-        }
-    }
-
-    func addInventory() {
-        guard let selectedProductId = selectedProductId,
-              let quantityInt = Int(quantity),
-              let supplierIdInt = Int(supplierId),
-              let maxLevelInt = Int(maxLevel),
-              let inventoryLevelInt = Int(inventoryLevel) else {
-            print("Invalid input")
-            return
-        }
-
-        dbHelper.insertInventory(
-            productId: selectedProductId,
-            quantity: quantityInt,
-            supplierId: supplierIdInt,
-            maxLevel: maxLevelInt,
-            inventoryLevel: inventoryLevelInt,
-            lastUpdated: Date().formatted()
-        )
-        fetchInventory()
-    }
-
-    func deleteInventory(at offsets: IndexSet) {
-        for index in offsets {
-            let record = inventoryRecords[index]
-            dbHelper.deleteInventory(inventoryId: record.id)
-        }
-        fetchInventory()
+        inventoryRecords = dbHelper.fetchProductInventory()
     }
 }
 
-#Preview {
+#Preview{
     InventoryTable().environmentObject(DBHelper())
 }
