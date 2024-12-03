@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct ProductsTable: View {
+    
     struct ProductData: Identifiable {
         let id: Int
         let productName: String
@@ -18,97 +19,110 @@ struct ProductsTable: View {
     @State private var editMode: EditMode = .inactive
     
     // Add the rest similarly
-
-    var body: some View {
-        VStack {
-            // Table Header
-            HStack {
-                Text("Product Name")
-                    .fontWeight(.bold)
-                    .frame(maxWidth: .infinity)
-                Text("Price")
-                    .fontWeight(.bold)
-                    .frame(maxWidth: .infinity)
-                Text("Category")
-                    .fontWeight(.bold)
-                    .frame(maxWidth: .infinity)
-            }
-            .padding()
-            .background(Color(hex: 0xad6800))
-            .foregroundColor(.white)
-            
-            // Product List
-            List {
-                ForEach(products) { product in
-                    HStack {
-                        Text(product.productName)
-                            .frame(maxWidth: .infinity)
-                        Text(String(format: "%.2f", product.price))
-                            .frame(maxWidth: .infinity)
-                        Text(product.category ?? "N/A")
-                            .frame(maxWidth: .infinity)
-                    }
-                    .padding(.vertical, 4)
-                }
-                .onDelete(perform: deleteProduct)
-                .onMove(perform: moveProduct)
-            }
-            .environment(\.editMode, $editMode)
-
-            Divider()
-            
-            // Add New Product
-            VStack {
-                Text("Add New Product")
-                    .font(.headline)
-                    .padding(.top)
-                
-                TextField("Product Name", text: $productName)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                
-                TextField("Price", text: $price)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .keyboardType(.decimalPad)
-                
-                TextField("Category", text: $category)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                
-                Button(action: addProduct) {
-                    Text("Add Product")
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color(hex: 0xad6800))
-                        .cornerRadius(8)
-                        .padding(.top)
-                }
-            }
-            .padding()
-            
-            // Edit Mode Button
-            HStack {
-                Button(action: {
-                    withAnimation {
-                        editMode = (editMode == .active) ? .inactive : .active
-                    }
-                }) {
-                    Text(editMode == .active ? "Done" : "Edit")
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Color(hex: 0xad6800))
-                        .cornerRadius(8)
-                        .padding(.top)
-                }
-            }
-            .padding()
-        }
-        .onAppear {
-            fetchProducts()
-        }
-    }
+    @State private var showMenu = false
     
+    var body: some View {
+        
+        NavigationStack{
+            VStack {
+                //product list
+                List {
+                    ForEach(products) { product in
+                        HStack {
+                            Text(product.productName)
+                                .frame(maxWidth: .infinity)
+                            Text(String(format: "%.2f", product.price))
+                                .frame(maxWidth: .infinity)
+                            Text(product.category ?? "N/A")
+                                .frame(maxWidth: .infinity)
+                        }
+                        .padding(.vertical, 4)
+                    }
+                    .onDelete(perform: deleteProduct)
+                    .onMove(perform: moveProduct)
+                }
+                .environment(\.editMode, $editMode)
+
+                Divider()
+                
+                // Add New Product
+                VStack {
+                    Text("Add New Product")
+                        .font(.headline)
+                        .padding(.top)
+                    
+                    TextField("Product Name", text: $productName)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    
+                    TextField("Price", text: $price)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .keyboardType(.decimalPad)
+                    
+                    TextField("Category", text: $category)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    
+                    Button(action: addProduct) {
+                        Text("Add Product")
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color(hex: 0xad6800))
+                            .cornerRadius(8)
+                            .padding(.top)
+                    }
+                }
+                .padding()
+                
+                // Edit Mode Button
+                HStack {
+                    Button(action: {
+                        withAnimation {
+                            editMode = (editMode == .active) ? .inactive : .active
+                        }
+                    }) {
+                        Text(editMode == .active ? "Done" : "Edit")
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color(hex: 0xad6800))
+                            .cornerRadius(8)
+                            .padding(.top)
+                    }
+                }
+                .padding()
+            }//end vstack
+            .onAppear {
+                fetchProducts()
+            }
+        }// end navstack
+        .toolbar() {
+            // Leading button (menu button)
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    showMenu.toggle() // Handle menu button action
+                }) {
+                    Image(systemName: "line.horizontal.3")
+                        .foregroundStyle(.white)
+                        .fontWeight(.bold)
+                        .clipShape(Rectangle())
+                    
+                }
+                
+                .shadow(color: .black, radius: 10)
+            }
+            
+            ToolbarItem(placement: .principal){
+                Text("Dashboard")
+                    .font(.headline)
+                    .foregroundColor(.white)
+            }
+        }//End Toolbar
+
+        
+    }//zsack end
+
+        
     func addProduct() {
         guard let priceValue = Double(price), !productName.isEmpty else {
             print("Invalid product details")

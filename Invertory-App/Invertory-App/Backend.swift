@@ -8,7 +8,7 @@ class DBHelper: ObservableObject {
 
     init() {
         self.db = createDB()
-        self.dropUserTable()
+        //self.dropUserTable()
         self.createUserTable()
         self.createSuppliersTable()
         self.createProductsTable()
@@ -22,7 +22,7 @@ class DBHelper: ObservableObject {
             for: .documentDirectory,
             in: .userDomainMask,
             appropriateFor: nil,
-            create: false
+            create: true
         ).appendingPathComponent(path)
         sqlite3_exec(db, "PRAGMA foreign_keys = ON;", nil, nil, nil)
         var db: OpaquePointer? = nil

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "6124CEF5-3A53-44C8-8C21-2FF563A5E19A"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "938D8AC2-0F1D-4399-83E9-DF8CCAF7C07A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Invertory-App/Backend.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "createDB()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6077AF81-3C27-4DEE-AD76-972882F68C93"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Invertory-App/ProductsTable.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "3"
+            endingLineNumber = "3"
+            landmarkName = "ProductsTable"
+            landmarkType = "14">
+            <Locations>
+               <Location
+                  uuid = "6077AF81-3C27-4DEE-AD76-972882F68C93 - 2ae44c75ac9275ef"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Invertory_App.ProductsTable.init() -&gt; Invertory_App.ProductsTable"
+                  moduleName = "Invertory-App.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/christiane/Documents/Inventory-Management-System/Invertory-App/Invertory-App/ProductsTable.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "3"
+                  endingLineNumber = "3">
+               </Location>
+               <Location
+                  uuid = "6077AF81-3C27-4DEE-AD76-972882F68C93 - 5802c27c7a53f21e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Invertory_App.ProductsTable.init(dbHelper: SwiftUI.EnvironmentObject&lt;Invertory_App.DBHelper&gt;) -&gt; Invertory_App.ProductsTable"
+                  moduleName = "Invertory-App.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/christiane/Documents/Inventory-Management-System/Invertory-App/Invertory-App/ProductsTable.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

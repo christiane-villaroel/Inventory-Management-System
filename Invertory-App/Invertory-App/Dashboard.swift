@@ -28,7 +28,7 @@ struct RecieveSortMenu:View {
 struct Dashboard: View {
     @State private var searchText = ""
     init(){
-        setupNavigationBarAppearance()
+        NavigationBarHelper.setupNavigationBarAppearance()
     }
     @State private var showMenu = false
     var body: some View {
@@ -158,8 +158,8 @@ struct Dashboard: View {
         }// End NavStack
        
     }//End of ZStack
-    // Customize the navigation bar appearance
-    private func setupNavigationBarAppearance() {
+   /* // Customize the navigation bar appearance
+    func setupNavigationBarAppearance() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = UIColor(Color.myColor) // Set your custom color here
@@ -169,7 +169,7 @@ struct Dashboard: View {
         // Apply the appearance to the navigation bar
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
-    }
+    }*/
 }
 
 #Preview{
