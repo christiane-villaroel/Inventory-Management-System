@@ -30,7 +30,7 @@ struct SideMenuContentView: View {
                 List{
  
                         
-                    NavigationLink(destination:Dashboard()){
+                    NavigationLink(destination:Dashboard().navigationBarBackButtonHidden(true)){
                         Image("dashboard")
                             .resizable()
                             .frame(width: 24, height: 24)
@@ -39,7 +39,7 @@ struct SideMenuContentView: View {
                             .font(.headline)
                             .foregroundStyle(.black)
                     }
-                    NavigationLink(destination:ProductsTable()){
+                    NavigationLink(destination:ProductsTable().navigationBarBackButtonHidden(true)){
                         Image("Quantity In")
                             .resizable()
                             .frame(width: 24, height: 24)
@@ -48,7 +48,7 @@ struct SideMenuContentView: View {
                             .font(.headline)
                             .foregroundStyle(.black)
                     }
-                    NavigationLink(destination:InventoryTable()){
+                    NavigationLink(destination:InventoryTable().navigationBarBackButtonHidden(true)){
                         Image("Reports")
                             .resizable()
                             .frame(width: 24, height: 24)
@@ -58,7 +58,7 @@ struct SideMenuContentView: View {
                             .font(.headline)
                             .foregroundStyle(.black)
                     }
-                    NavigationLink(destination:InventoryManagementView()){
+                    NavigationLink(destination:InventoryManagementView().navigationBarBackButtonHidden(true)){
                         Image(systemName: "pencil")
                             .resizable()
                             .frame(width: 24, height: 24)

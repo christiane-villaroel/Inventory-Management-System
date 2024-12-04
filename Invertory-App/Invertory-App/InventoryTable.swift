@@ -2,41 +2,42 @@ import SwiftUI
 
 struct InventoryRecord: Identifiable {
     let id: Int
-    let productId: Int
-    let quantity: Int
+    var productId: Int // Include productId to match backend
+    let productName: String
+    var quantity: Int
     let supplierId: Int
-    let maxLevel: Int
-    let inventoryLevel: Int
+    var maxLevel: Int
+    var inventoryLevel: Int
     let lastUpdated: String
 }
 
+
+import SwiftUI
+
 struct InventoryTable: View {
     @EnvironmentObject var dbHelper: DBHelper
-    @State private var inventoryRecords: [(Int, String, Int, Int, Int, Int, String)] = []
+    @State private var inventoryRecords: [InventoryRecord] = []
+    @State private var editingRecord: InventoryRecord? // Tracks the record being edited
+    @State private var showEditSheet = false           // Controls the sheet presentation
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 // Table Header
                 HStack {
                     Text("Product Name")
                         .fontWeight(.bold)
-                        .frame(maxWidth: .infinity)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     Text("Quantity")
                         .fontWeight(.bold)
-                        .frame(maxWidth: .infinity)
+                        .frame(maxWidth: .infinity, alignment: .center)
                     Text("Inventory Level")
                         .fontWeight(.bold)
-                        .frame(maxWidth: .infinity)
+                        .frame(maxWidth: .infinity, alignment: .center)
                     Text("Max Level")
                         .fontWeight(.bold)
-                        .frame(maxWidth: .infinity)
-                    Text("Supplier ID")
-                        .fontWeight(.bold)
-                        .frame(maxWidth: .infinity)
-                    Text("Last Updated")
-                        .fontWeight(.bold)
-                        .frame(maxWidth: .infinity)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                    Spacer()
                 }
                 .padding()
                 .background(Color.myColor)
@@ -44,36 +45,71 @@ struct InventoryTable: View {
 
                 // Inventory List
                 List {
-                    ForEach(inventoryRecords, id: \.0) { record in
+                    ForEach(inventoryRecords) { record in
                         HStack {
-                            Text(record.1) // Product Name
-                                .frame(maxWidth: .infinity)
-                            Text("\(record.2)") // Quantity
-                                .frame(maxWidth: .infinity)
-                            Text("\(record.3)") // Inventory Level
-                                .frame(maxWidth: .infinity)
-                            Text("\(record.4)") // Max Level
-                                .frame(maxWidth: .infinity)
-                            Text("\(record.5)") // Supplier ID
-                                .frame(maxWidth: .infinity)
-                            Text(record.6) // Last Updated
-                                .frame(maxWidth: .infinity)
+                            Text(record.productName)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            Text("\(record.quantity)")
+                                .frame(maxWidth: .infinity, alignment: .center)
+                            Text("\(record.inventoryLevel)")
+                                .frame(maxWidth: .infinity, alignment: .center)
+                            Text("\(record.maxLevel)")
+                                .frame(maxWidth: .infinity, alignment: .center)
+                            Spacer()
+
+                            // Edit Button
+                            Button(action: {
+                                editingRecord = record // Set the record to edit
+                                showEditSheet = true  // Show the edit sheet
+                            }) {
+                                Image(systemName: "pencil")
+                                    .foregroundColor(.blue)
+                            }
+                            .buttonStyle(BorderlessButtonStyle())
                         }
                         .padding(.vertical, 4)
                     }
                 }
                 .listStyle(PlainListStyle())
             }
-            .navigationBarTitle("Inventory List", displayMode: .inline)
+            .navigationTitle("Inventory List")
             .onAppear(perform: fetchInventory)
+            .sheet(isPresented: $showEditSheet) {
+                if let editingRecord = editingRecord {
+                    EditInventoryView(
+                        record: editingRecord,
+                        onSave: { updatedRecord in
+                            dbHelper.updateInventory(
+                                id: updatedRecord.id,
+                                quantity: updatedRecord.quantity,
+                                inventoryLevel: updatedRecord.inventoryLevel,
+                                maxLevel: updatedRecord.maxLevel
+                            )
+                            fetchInventory() // Refresh the inventory list
+                        }
+                    )
+                }
+            }
         }
     }
 
     // Fetch Inventory Records
     func fetchInventory() {
-        inventoryRecords = dbHelper.fetchProductInventory()
+        inventoryRecords = dbHelper.fetchProductInventory().map {
+            InventoryRecord(
+                id: $0.0,
+                productId: $0.1,
+                productName: $0.2,
+                quantity: $0.3,
+                supplierId: $0.4,
+                maxLevel: $0.5,
+                inventoryLevel: $0.6,
+                lastUpdated: $0.7
+            )
+        }
     }
 }
+
 
 #Preview{
     InventoryTable().environmentObject(DBHelper())

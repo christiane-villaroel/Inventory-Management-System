@@ -262,7 +262,7 @@ class DBHelper: ObservableObject {
         sqlite3_finalize(createTableStmt)
     }
 
-    func insertInventory(productId: Int, quantity: Int, supplierId: Int, maxLevel: Int, inventoryLevel: Int, lastUpdated: String) {
+    /*func insertInventory(productId: Int, quantity: Int, supplierId: Int, maxLevel: Int, inventoryLevel: Int, lastUpdated: String) {
         let insertQuery = """
             INSERT INTO Inventory (product_id, quantity, supplier_id, Max_level, inventory_level, last_updated)
             VALUES (?, ?, ?, ?, ?, ?);
@@ -282,7 +282,39 @@ class DBHelper: ObservableObject {
             }
         }
         sqlite3_finalize(insertStmt)
+    }*/
+    func updateInventory(id: Int, quantity: Int, inventoryLevel: Int, maxLevel: Int) {
+        let query = """
+        UPDATE inventory
+        SET quantity = ?, inventory_level = ?, max_level = ?
+        WHERE id = ?
+        """
+        
+        // Prepare the SQLite statement
+        var statement: OpaquePointer? = nil
+        
+        if sqlite3_prepare_v2(db, query, -1, &statement, nil) == SQLITE_OK {
+            // Bind parameters
+            sqlite3_bind_int(statement, 1, Int32(quantity))
+            sqlite3_bind_int(statement, 2, Int32(inventoryLevel))
+            sqlite3_bind_int(statement, 3, Int32(maxLevel))
+            sqlite3_bind_int(statement, 4, Int32(id))
+            
+            // Execute the statement
+            if sqlite3_step(statement) == SQLITE_DONE {
+                print("Successfully updated inventory record with ID \(id).")
+            } else {
+                print("Failed to update inventory record: \(sqlite3_errmsg(db).flatMap { String(cString: $0) } ?? "Unknown error")")
+            }
+        } else {
+            print("Failed to prepare update statement: \(sqlite3_errmsg(db).flatMap { String(cString: $0) } ?? "Unknown error")")
+        }
+        
+        // Finalize and close the statement
+        sqlite3_finalize(statement)
     }
+
+
     func fetchInventory() -> [(Int, Int, Int, Int, Int, Int, String)] {
         let fetchQuery = "SELECT * FROM Inventory;"
         var fetchStmt: OpaquePointer? = nil
@@ -404,35 +436,45 @@ class DBHelper: ObservableObject {
     }
     
     //Joins product and Inventory
-    func fetchProductInventory() -> [(Int, String, Int, Int, Int, Int, String)] {
-        var records: [(Int, String, Int, Int, Int, Int, String)] = []
+    func fetchProductInventory() -> [(Int, Int, String, Int, Int, Int, Int, String)] {
+        var result: [(Int, Int, String, Int, Int, Int, Int, String)] = []
+        
         let query = """
-        SELECT
-            Inventory.productId,
-            Products.name,
-            Inventory.quantity,
-            Inventory.inventoryLevel,
-            Inventory.maxLevel,
-            Inventory.supplierId,
-            Inventory.lastUpdated
-        FROM Inventory
-        INNER JOIN Products ON Inventory.productId = Products.id;
+        SELECT 
+            inventory.id, 
+            inventory.product_id, 
+            products.name, 
+            inventory.quantity, 
+            inventory.supplier_id, 
+            inventory.max_level, 
+            inventory.inventory_level, 
+            inventory.last_updated
+        FROM inventory
+        JOIN products ON inventory.product_id = products.id
+        ORDER BY inventory.last_updated DESC
         """
-        if let result = executeQuery(query: query) {
-            for row in result {
-                if let productId = row["productId"] as? Int,
-                   let name = row["name"] as? String,
-                   let quantity = row["quantity"] as? Int,
-                   let inventoryLevel = row["inventoryLevel"] as? Int,
-                   let maxLevel = row["maxLevel"] as? Int,
-                   let supplierId = row["supplierId"] as? Int,
-                   let lastUpdated = row["lastUpdated"] as? String {
-                    records.append((productId, name, quantity, inventoryLevel, maxLevel, supplierId, lastUpdated))
-                }
+        
+        var statement: OpaquePointer? = nil
+        
+        if sqlite3_prepare_v2(db, query, -1, &statement, nil) == SQLITE_OK {
+            while sqlite3_step(statement) == SQLITE_ROW {
+                let id = Int(sqlite3_column_int(statement, 0))
+                let productId = Int(sqlite3_column_int(statement, 1))
+                let productName = String(cString: sqlite3_column_text(statement, 2))
+                let quantity = Int(sqlite3_column_int(statement, 3))
+                let supplierId = Int(sqlite3_column_int(statement, 4))
+                let maxLevel = Int(sqlite3_column_int(statement, 5))
+                let inventoryLevel = Int(sqlite3_column_int(statement, 6))
+                let lastUpdated = String(cString: sqlite3_column_text(statement, 7))
+                
+                result.append((id, productId, productName, quantity, supplierId, maxLevel, inventoryLevel, lastUpdated))
             }
         }
-        return records
+        
+        sqlite3_finalize(statement)
+        return result
     }
+
 
     func updateProduct(productId: Int, productName: String, price: Double, category: String?) {
         let updateQuery = "UPDATE Products SET product_name = ?, price = ?, category = ? WHERE product_id = ?;"
