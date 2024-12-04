@@ -68,13 +68,10 @@ struct Login: View
                             .background(Color.myColor)
                             .cornerRadius(50)
                             .foregroundColor(.white)
-                    }// Button
+                    }
                     .alert(isPresented: $unsucessfulAlert) {
                         Alert(title: Text("Error"), message: Text("Invalid username or password. Try again."), dismissButton: .default(Text("OK")))
-                    }//Alert
-                }//End NavLink
-                NavigationLink(destination:Register().navigationBarBackButtonHidden(true)){
-                    Text("Register")
+                    }
                 }
             }
         }

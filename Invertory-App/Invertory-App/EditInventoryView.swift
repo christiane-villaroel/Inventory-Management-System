@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import SwiftUI
+
 struct EditInventoryView: View {
     @State var record: InventoryRecord
     var onSave: (InventoryRecord) -> Void
@@ -46,6 +48,7 @@ struct EditInventoryView: View {
     // Dismiss the modal
     @Environment(\.dismiss) private var dismiss
 }
+
 
 #Preview {
     EditInventoryView(

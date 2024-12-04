@@ -1,10 +1,3 @@
-//
-//  InventoryManagementView.swift
-//  Invertory-App
-//
-//  Created by Christiane Villaroel on 11/30/24.
-//
-
 import SwiftUI
 
 struct InventoryManagementView: View {
@@ -15,46 +8,66 @@ struct InventoryManagementView: View {
     @State private var maxLevel: Int = 0
     @State private var supplierId: Int = 0
     @State private var isEditing = false
+    @State private var showMenu = false
 
     var body: some View {
-        NavigationView {
-            Form {
-                Section(header: Text("Product Details")) {
-                    TextField("Product ID", value: $inventoryID, format: .number)
-                        .keyboardType(.numberPad)
-                    TextField("Supplier ID", value: $supplierId, format: .number)
-                        .keyboardType(.numberPad)
-                }
-
-                Section(header: Text("Inventory Details")) {
-                    TextField("Quantity", value: $quantity, format: .number)
-                        .keyboardType(.numberPad)
-                    TextField("Inventory Level", value: $inventoryLevel, format: .number)
-                        .keyboardType(.numberPad)
-                    TextField("Max Level", value: $maxLevel, format: .number)
-                        .keyboardType(.numberPad)
-                }
-
-                Button(action: {
-                    if isEditing {
-                            print("updating inventory")
-                    } else {
-                        /*dbHelper.addInventory(inventoryId: inventoryID, quantity: quantity, inventoryLevel: inventoryLevel, maxLevel: maxLevel, supplierId: supplierId)*/
+        NavigationStack {
+            ZStack {
+                Form {
+                    Section(header: Text("Product Details")) {
+                        TextField("Product ID", value: $inventoryID, format: .number)
+                            .keyboardType(.numberPad)
+                        TextField("Supplier ID", value: $supplierId, format: .number)
+                            .keyboardType(.numberPad)
                     }
-                }) {
-                    Text(isEditing ? "Update Inventory" : "Add Inventory")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.myColor)
+
+                    Section(header: Text("Inventory Details")) {
+                        TextField("Quantity", value: $quantity, format: .number)
+                            .keyboardType(.numberPad)
+                        TextField("Inventory Level", value: $inventoryLevel, format: .number)
+                            .keyboardType(.numberPad)
+                        TextField("Max Level", value: $maxLevel, format: .number)
+                            .keyboardType(.numberPad)
+                    }
+
+                    Button(action: {
+                        if isEditing {
+                            print("Updating inventory")
+                        } else {
+                            print("Adding inventory")
+                        }
+                    }) {
+                        Text(isEditing ? "Update Inventory" : "Add Inventory")
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.myColor)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                    }
+                }
+
+                // Side Menu
+                SideMenuView(isShowing: $showMenu)
+            }
+            .toolbar {
+                // Menu Button
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        showMenu.toggle()
+                    }) {
+                        Image(systemName: "line.horizontal.3")
+                            .foregroundStyle(.white)
+                    }
+                }
+                ToolbarItem(placement: .principal) {
+                    Text("Manage Inventory")
+                        .font(.headline)
                         .foregroundColor(.white)
-                        .cornerRadius(8)
                 }
             }
-            .navigationTitle(isEditing ? "Edit Inventory" : "Add Inventory")
         }
     }
 }
-
 
 #Preview {
     InventoryManagementView().environmentObject(DBHelper())
