@@ -174,6 +174,6 @@ struct Dashboard: View {
 
 #Preview{
     
-        Dashboard()
+    Dashboard().environmentObject(DBHelper())
     
 }

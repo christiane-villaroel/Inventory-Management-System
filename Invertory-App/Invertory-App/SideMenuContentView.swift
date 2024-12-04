@@ -90,5 +90,5 @@ struct SideMenuContentView: View {
 }//end sidMenueContainer
 
 #Preview {
-    SideMenuContentView()
+    SideMenuContentView().environmentObject(DBHelper())
 }

@@ -75,44 +75,44 @@ struct Register: View {
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(.black))
-                    Form{
-                        Picker("Select a Role", selection: $selectedRole){
-                            ForEach(roleOptions,id: \.self){
-                                Text($0)
-                            }
-                        }
-                        .pickerStyle(.inline)
-                       
-                    }
                    
-                    NavigationLink(destination: Login().navigationBarBackButtonHidden(true),isActive: $registerSuccessful){
-                        Button(action:{
-                            if !username.isEmpty && !password.isEmpty && !selectedRole.isEmpty && !email.isEmpty{
-                                db.insertUser(username: username, password: password,role: selectedRole, companyName: companyName, email: email)
-                                registerSuccessful = true
-                            }else{
-                                registerSuccessful = false
-                            }
-                        }) {
-                           Text("Register")
-                                .frame(width: 180, height: 5)
-                                .padding()
-                                .background(Color.myColor)
-                                .cornerRadius(50)
-                                .foregroundColor(.white)
-                        }//End Button
-                        
-                    }
                 }//End Vstack
-            }
+            }//scrollview
+            Form{
+                Picker("Select a Role", selection: $selectedRole){
+                    ForEach(roleOptions,id: \.self){
+                        Text($0)
+                    }
+                }
+                .pickerStyle(.inline)
+               
+            }//Form
+            NavigationLink(destination: Login().navigationBarBackButtonHidden(true),isActive: $registerSuccessful){
+                Button(action:{
+                    if !username.isEmpty && !password.isEmpty && !selectedRole.isEmpty && !email.isEmpty{
+                        db.insertUser(username: username, password: password,role: selectedRole, companyName: companyName, email: email)
+                        registerSuccessful = true
+                    }else{
+                        registerSuccessful = false
+                    }
+                }) {
+                   Text("Register")
+                        .frame(width: 180, height: 5)
+                        .padding()
+                        .background(Color.myColor)
+                        .cornerRadius(50)
+                        .foregroundColor(.white)
+                }//End Button
+                
+            }//Nav Link
         }//End NavStack
        
     }//End Body
 }//end RegisterView
 
 #Preview {
-    let dbhelper = DBHelper()
+    //let dbhelper = DBHelper()
     Register()
-        .environmentObject(dbhelper)
+        .environmentObject(DBHelper())
         
 }
